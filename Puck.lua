@@ -5,7 +5,7 @@ require("libs.TargetFind")
 --      CONFIG       --
 --===================--
 config = ScriptConfig.new()
-config:SetParameter("ComboKey", "R", config.TYPE_HOTKEY)
+config:SetParameter("ComboKey", "P", config.TYPE_HOTKEY)
 config:Load()
 
 local combokey 		= config.ComboKey
