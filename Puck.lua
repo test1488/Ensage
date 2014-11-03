@@ -6,11 +6,9 @@ require("libs.TargetFind")
 --===================--
 config = ScriptConfig.new()
 config:SetParameter("ComboKey", "R", config.TYPE_HOTKEY)
-config:SetParameter("GetTargetWithLeastHP", false)
 config:Load()
 
 local combokey 		= config.ComboKey
-local gethpconfig 	= config.GetTargetWithLeastHP
 local range 		= 1000
 
 --===================--
@@ -34,8 +32,9 @@ function Tick( tick )
 		script:Disable()
 	else
 		-- Get Hero Abilities
-		local StiflingDagger = me:GetAbility(1)
-		local PhantomStrike = me:GetAbility(2)
+		local IllusoryOrb = me:GetAbility(1)
+		local WaningRift = me:GetAbility(2)
+		local DreamCoil = me:GetAbility(5)
 		
 		-- Get Visible Enemies
 		local enemies = entityList:GetEntities({type=LuaEntity.TYPE_HERO, visible = true, alive = true, team = me:GetEnemyTeam(), illusion=false})
@@ -48,10 +47,8 @@ function Tick( tick )
 				target = v
 			end
 			
-			-- Get the closest / least health target
+			
 			if target then
-				if gethpconfig and distance < range then
-					target = targetFind:GetLowestEHP(range,"phys")
 				elseif distance < GetDistance2D(target,me) then
 					target = v
 				elseif GetDistance2D(target,me) > range or not target.alive then
@@ -61,10 +58,11 @@ function Tick( tick )
 		end
 		
 		if target then
-			CastSpell(StiflingDagger,target)
-			CastSpell(PhantomStrike,target)
+			CastSpell(IllusoryOrb,target)
+			CastSpell(WaningRift,target)
+			CastSpell(DreamCoil,target)
 			me:Attack(target)
-			sleepTick = tick + 300
+			sleepTick = tick + 400
 			return
 		end
 	end
