@@ -9,7 +9,7 @@ config:SetParameter("ComboKey", "R", config.TYPE_HOTKEY)
 config:Load()
 
 local combokey 		= config.ComboKey
-local range 		= 1000
+local range 		= 1200
 
 --===================--
 --       CODE        --
@@ -25,7 +25,10 @@ function Tick( tick )
 	end
  
 	local me = entityList:GetMyHero()
-	if not me then return end Sleep(125)
+	if not me then
+		return
+	end
+	local dagger = me:FindItem("item_blink")
  
 	if me.classId ~= CDOTA_Unit_Hero_Puck then
 		--"Script Disabled!"
@@ -34,6 +37,8 @@ function Tick( tick )
 		-- Get Hero Abilities
 		local IllusoryOrb = me:GetAbility(1)
 		local WaningRift = me:GetAbility(2)
+		local PhaseShift = me:GetAbility(3)
+		local EtherealJaunt = me:GetAbility(4)
 		local DreamCoil = me:GetAbility(5)
 		
 		-- Get Visible Enemies
